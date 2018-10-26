@@ -14,16 +14,12 @@ const {
   useCookieInsteadOfSession,
   nonceLifetime
 } = require('./passportConfig')
-const getroles = require('../controllers/getroles')
 const finduser = require('./findUser')
 const OIDCStrategy = require('passport-azure-ad').OIDCStrategy
-const token = require('../controllers/token')
-let arrRoles = ''
-let tokenExpire = ''
+
 
 module.exports = passport => {
   // (DE)SERIALIZE USER
-
   passport.serializeUser((user, done) => {
     done(null, user.oid)
   })
@@ -35,7 +31,6 @@ module.exports = passport => {
   })
 
   // AZURE AD LOGIN STRATEGY
-
   passport.use(
     'azuread-openidconnect',
     new OIDCStrategy(
@@ -60,31 +55,20 @@ module.exports = passport => {
           return done(new Error('No oid found'), null)
         }
         process.nextTick(() => {
+          console.log("\x1b[33m%s\x1b[0m" ,'Doing authentication rutine in application')
           finduser.findByOid(profile.oid, function(err, user) {
             if (err) {
-              console.log('error: ', err)
               return done(err)
             }
-            console.log('user1 :', user)
             if (!user) {
-              /*              const now = new Date()
-              console.log(now)
-              const tokenExpire = Date.parse(now) //.setMinutes(now.getMinutes() + 1);
-              console.log(Date.parse(now))
-              console.log(tokenExpire)
-*/
-              arrRoles = getroles.matchRoles(profile._json.groups)
-
+              console.log("\x1b[33m%s\x1b[0m" ,'User does not exist. writing new user info to state and session')
               let newUser = {}
               newUser.oid = profile.oid
               newUser.upn = profile.upn
               newUser.displayName = profile.displayName
               newUser.firstName = profile.name.givenName
               newUser.lastName = profile.name.familyName
-              newUser.roles = arrRoles
               newUser.refreshToken = refreshToken
-              //              newUser.accessToken = accessToken
-              //              newUser.tokenExpire = tokenExpire
               finduser.users.push(newUser)
 
               req.session.userid = profile.oid
@@ -92,27 +76,15 @@ module.exports = passport => {
               req.session.firstName = profile.name.givenName
               req.session.lastName = profile.name.familyName
               req.session.displayName = profile.displayName
-              req.session.roles = arrRoles
               req.session.refreshToken = refreshToken
-              //console.log('session: ', req.session)
-              //console.log('newuser: ', newUser)
               return done(null, newUser)
             }
-            /*           try {
-              const decodedToken = token.decodeToken(user.accessToken)
-              console.log('decoedtoken exp: ', JSON.parse(decodedToken).exp)
-            }
-            catch {
-              console.log('token decode error')
-          }
-*/
-            //console.log('user: ', user)
+            console.log("\x1b[33m%s\x1b[0m" ,'user did exist in state but not in session, writing new session info')
             req.session.userid = user.oid
             req.session.upn = user.upn
             req.session.firstName = user.firstName
             req.session.lastName = user.lastName
             req.session.displayName = user.displayName
-            req.session.roles = arrRoles
             req.session.refreshToken = refreshToken
             return done(null, user)
           })

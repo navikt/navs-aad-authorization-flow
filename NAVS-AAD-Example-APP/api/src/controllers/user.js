@@ -1,7 +1,7 @@
 const msgraph = require('../controllers/msgraph')
 
-// USER SESSION
 
+// USER SESSION
 exports.getUserProfile = () => {
   return async (req, res) => {
     const userPhoto = await msgraph.getUserPhoto({

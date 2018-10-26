@@ -6,9 +6,7 @@ exports.getUserPhoto = async ({ userId, refreshToken, userUpn }) => {
   let userPhoto = ''
   let aToken = ''
   const resource = 'https://graph.microsoft.com'
-  //const accessToken = await token.getAccessTokenUser(tokenURI, refreshToken, resource)
   const accessToken = await token.validateRefreshAndGetToken(userId, refreshToken, resource)
-  //console.log('token: ', accessToken)
   return request
     .get({
       headers: { 'content-type': 'image/jpg' },
@@ -21,7 +19,6 @@ exports.getUserPhoto = async ({ userId, refreshToken, userUpn }) => {
       return userPhoto
     })
     .catch(err => {
-      //console.log(err)
       userPhoto = defaultPhoto
       return userPhoto
     })

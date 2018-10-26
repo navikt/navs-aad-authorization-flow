@@ -1,5 +1,4 @@
 const request = require('request-promise')
-const config = require('../config/passportConfig')
 let ms_access_token = ''
 
 exports.getAccessToken = async (tokenURI, resource) => {
@@ -7,7 +6,7 @@ exports.getAccessToken = async (tokenURI, resource) => {
   try {
     parameters = {
       client_id: process.env['BASTAAZURECONFIG_CLIENTID'],
-      resource: resource, //process.env['BASTAAZURECONFIG_CLIENTID'],//config.resourceURL,
+      resource: resource,
       redirect_uri: process.env['BASTAAZURECONFIG_CALLBACKURI'],
       grant_type: 'client_credentials',
       client_secret: process.env['BASTAAZURECONFIG_CLIENTSECRET']
@@ -18,8 +17,6 @@ exports.getAccessToken = async (tokenURI, resource) => {
       body
     ) {
       ms_access_token = JSON.parse(body).access_token
-
-      // console.log('access token: ', ms_access_token)
       return ms_access_token
     })
     return ms_access_token
@@ -34,7 +31,7 @@ exports.getAccessTokenUser = async (tokenURI, refreshToken, resource) => {
   try {
     parameters = {
       client_id: process.env['BASTAAZURECONFIG_CLIENTID'],
-      resource: resource, // process.env['BASTAAZURECONFIG_CLIENTID'],
+      resource: resource, 
       redirect_uri: process.env['BASTAAZURECONFIG_CALLBACKURI'],
       grant_type: 'refresh_token',
       refresh_token: refreshToken,
@@ -46,8 +43,6 @@ exports.getAccessTokenUser = async (tokenURI, refreshToken, resource) => {
       body
     ) {
       ms_access_token = JSON.parse(body).access_token
-
-      // console.log('access token: ', ms_access_token)
     })
     return ms_access_token
   } catch (e) {
