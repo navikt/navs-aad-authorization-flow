@@ -1,7 +1,6 @@
 {
   "name": "NAVs-AAD-Example-APP",
   "jest": {
-    "setupTestFrameworkScriptFile": "<rootDir>/testSetup.js",
     "moduleNameMapper": {
       "\\.(css|jpg|png)$": "<rootDir>/empty-module.js"
     },
@@ -24,9 +23,12 @@
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.3",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
     "express": "^4.16.3",
     "helmet": "^3.14.0",
     "morgan": "^1.9.0",
+    "nock": "^10.0.1",
     "passport": "^0.4.0",
     "passport-azure-ad": "^4.0.0",
     "pretty-quick": "^1.6.0",
