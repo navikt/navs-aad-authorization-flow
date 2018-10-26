@@ -17,7 +17,7 @@ exports.getUserProfile = () => {
       roles: req.session.roles,
       photo: userPhoto
     }
-    //console.log(user)
+    console.log(user)
     res.status(200).send(user)
   }
 }
