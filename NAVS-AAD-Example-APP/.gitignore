@@ -1,6 +1,9 @@
-.ideadist
+.idea
+dist
 node_modules/
 .cache/
+frontend/src/.DS_Store
+frontend/src/fonts/
 .vscode/
 .env
 dockerbuild.sh

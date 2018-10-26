@@ -1,0 +1,192 @@
+{
+  "name": "basta-frontend",
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/testSetup.js",
+    "moduleNameMapper": {
+      "\\.(css|jpg|png)$": "<rootDir>/empty-module.js"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(react-native|lodash-es|react-redux)/)"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ]
+  },
+  "version": "73.0.0",
+  "description": "ny frontend til basta",
+  "main": "src/index.js",
+  "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^5.2.0",
+    "azure-ad-jwt": "^1.1.0",
+    "azure-jwt-verify": "^1.0.0",
+    "better-npm-run": "^0.1.1",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.3",
+    "common": "^0.2.5",
+    "connect": "^3.6.6",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.3",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "helmet": "^3.14.0",
+    "http-proxy-middleware": "^0.19.0",
+    "husky": "^1.0.0-rc.13",
+    "js-cookie": "^2.2.0",
+    "moment": "^2.22.2",
+    "morgan": "^1.9.0",
+    "nock": "^9.6.1",
+    "passport": "^0.4.0",
+    "passport-azure-ad": "^4.0.0",
+    "pretty-quick": "^1.6.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2",
+    "save-dev": "^2.0.0"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.2.0",
+    "@material-ui/core": "^1.5.1",
+    "@material-ui/lab": "^1.0.0-alpha.11",
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-module-resolver": "^3.1.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2017": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "chai": "^4.1.2",
+    "classnames": "^2.2.6",
+    "enzyme": "^3.4.4",
+    "enzyme-adapter-react-16": "^1.2.0",
+    "expect": "^23.5.0",
+    "font-awesome": "^4.7.0",
+    "history": "^4.7.2",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^23.5.0",
+    "less": "^3.8.0",
+    "lodash.throttle": "^4.1.1",
+    "nav-frontend-core": "^4.0.5",
+    "nav-frontend-js-utils": "^1.0.6",
+    "nav-frontend-tabs": "0.0.24",
+    "nav-frontend-tabs-style": "0.0.13",
+    "nav-frontend-typografi-style": "^1.0.10",
+    "ncp": "^2.0.0",
+    "nodemon": "^1.18.3",
+    "parcel-bundler": "^1.9.7",
+    "prettier": "^1.14.2",
+    "prop-types": "^15.6.2",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "react-router-redux": "^4.0.8",
+    "react-select": "^2.0.0",
+    "react-tooltip": "^3.6.1",
+    "redux": "^4.0.0",
+    "redux-devtools-extension": "^2.13.5",
+    "redux-mock-store": "^1.5.3",
+    "redux-saga": "^0.16.0",
+    "redux-saga-test-plan": "^3.7.0",
+    "regenerator-runtime": "^0.12.1",
+    "rimraf": "^2.6.2",
+    "sinon": "^6.3.4"
+  },
+  "scripts": {
+    "test": "jest",
+    "start": "better-npm-run start",
+    "build": "better-npm-run build",
+    "prebuild": "better-npm-run prebuild",
+    "prefrontend": "better-npm-run prebuild",
+    "frontend": "better-npm-run dev-frontend",
+    "api": "better-npm-run dev-api",
+    "offline": "better-npm-run dev-offline",
+    "mockend": "better-npm-run dev-mockend",
+    "auth": "better-npm-run auth"
+  },
+  "betterScripts": {
+    "start": {
+      "command": "node api/src/server.js",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "prebuild": {
+      "command": "better-npm-run mkdir && better-npm-run copy-fonts"
+    },
+    "dev-frontend": {
+      "command": "parcel frontend/src/index.html --public-url /static",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+    "mkdir": {
+      "command": "mkdirp frontend/src/fonts"
+    },
+    "copy-fonts": {
+      "command": "ncp node_modules/font-awesome/fonts/ frontend/src/fonts"
+    },
+    "dev-api": {
+      "command": "nodemon api/src/server.js",
+      "env": {
+        "NODE_ENV": "development",
+        "BASTA_BACKEND": "http://localhost:6996"
+      }
+    },
+    "dev-offline": {
+      "command": "parcel frontend/src/index.html --public-url /static | nodemon api/test/server.js",
+      "env": {
+        "NODE_ENV": "offline",
+        "BASTA_BACKEND": "http://localhost:6996"
+      }
+    },
+    "dev-mockend": {
+      "command": "nodemon api/test/mockend/mock-backend.js",
+      "env": {
+        "NODE_ENV": "offline"
+      }
+    },
+    "auth": {
+      "command": "nodemon api/AADauth/auth-backend.js",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+    "build": {
+      "command": "rimraf dist/ && parcel build frontend/src/index.html --public-url /static",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "dist/*",
+      "frontend/*"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "keywords": [
+    "frontend",
+    "react",
+    "parcel",
+    "redux",
+    "saga",
+    "basta",
+    "react-router"
+  ],
+  "author": "@navikt/aura",
+  "license": "MIT"
+}
