@@ -5,3 +5,4 @@ node_modules/
 .env
 dockerbuild.sh
 package-lock.json
+NAVS-AAD-Example-APP/.env

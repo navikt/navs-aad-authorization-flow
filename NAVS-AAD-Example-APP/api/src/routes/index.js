@@ -6,6 +6,7 @@ const health = require('../controllers/health')
 const selftest = require('../controllers/selftest')
 const token = require('../controllers/token')
 const { api } = require('../config/config')
+const frontend = require('../../../frontend/index')
 
 // APPLICATION HEALTH
 router.get('/isalive', health.isAlive())
@@ -19,19 +20,11 @@ router.get('/login/:param1?/:param2?/:param3?', auth.authenticateAzure())
 
 router.post('/auth/openid/callback', auth.authenticateAzureCallback())
 
-router.get(`${api}/auth/logout`, auth.logout())
+router.get(`/auth/logout`, auth.logout())
 
 // USER
-router.get(`${api}/user/profile`, auth.ensureAuthenticated(), user.getUserProfile())
+router.get(`/user/profile`, auth.ensureAuthenticated(), user.getUserProfile())
 
-router.get(`${api}/user/session`, auth.ensureAuthenticated(), user.userSessionLookup())
-
-router.get(`/token`, auth.ensureAuthenticated(), token.getToken())
-
-router.get(`/tokenuser`, auth.ensureAuthenticated(), token.getTokenUser())
-
-router.get(`/auth`, auth.ensureAuthenticated(), token.verifyToken())
-
-router.get('/', auth.ensureAuthenticated())
+router.get('/', auth.ensureAuthenticated(), frontend.showFrontPage())
 
 module.exports = router
