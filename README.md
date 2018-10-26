@@ -57,3 +57,27 @@ If a browser session expires, the application should redirect the user to do a n
 Given that this is the same browser the user originally logged in to Azure AD with, Azure AD will recognize the user and do a transparent login without demanding username and password before redirecting the user back to the application
 
 
+
+## Application implementation details
+##### An example application flow based on express using passport.js
+![application-implementation-details](/_media/application-implementation-details.png "Application implementation details")
+
+1. When the user first attempts to access the application, the request will go through a [`ensureAuthenticated()`](https://github.com/navikt/basta-frontend/blob/master/api/src/controllers/authenticate.js#L46-L64) method, where we see if the user already `isAuthenticated()`
+If the user is authenticated, we [`validateRefreshAndGetToken()`](https://github.com/navikt/basta-frontend/blob/master/api/src/controllers/token.js#L51-L95) to ensure the token's validity and expiry date.
+As this is the first time the user access the application, we find no valid user session, and the user i redirected to /login
+
+1. /login triggers the [`authenticateAzure()`](https://github.com/navikt/basta-frontend/blob/master/api/src/controllers/authenticate.js#L7-L28) method, where an [authorization URL](https://github.com/navikt/basta-frontend/blob/master/api/src/controllers/authenticate.js#L16) will be built based on the [passport configuration](https://github.com/navikt/basta-frontend/blob/master/api/src/config/passport.js).
+The user is then redirected to the generated user specific authorization URL on Azure AD.
+
+1. When the user has successfully logged, Azure AD will redirect the user to the application's /callback endpoint with _**<authorization_code>**_ as a url parameter.
+
+1. The application's /callback endpoint will [`authenticateAzureCallback()`](https://github.com/navikt/basta-frontend/blob/master/api/src/controllers/authenticate.js#L30-L42) 
+
+1. passport will fetch the user's _**<id_token>**_ and _**<refresh_token>**_ using the provided _**<authorization_code>**_ from Azure AD.
+
+1. The user's details, along with the _**<refresh_token>**_, will be saved in the local user storage. 
+Additionally, the _**<refresh_token>**_ will be stored in a session cookie.
+
+1. Once passport has finished [`authenticateAzureCallback()`](https://github.com/navikt/basta-frontend/blob/master/api/src/controllers/authenticate.js#L30-L42), the user will be redirected back to / (or to the URI the user was on before login was triggered), and [`ensureAuthenticated()`](https://github.com/navikt/basta-frontend/blob/master/api/src/controllers/authenticate.js#L46-L64) will recognize that the user `isAuthenticated()` and serve the frontend application.
+
+
