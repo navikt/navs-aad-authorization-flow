@@ -5,11 +5,11 @@
 1. Registered App in Azure AD (https://github.com/navikt/IaC/tree/master/Azure/registerApplication)
 2. .env file with:
    ```
-    BASTAAZURECONFIG_CLIENTID='<application_id from aad app>'
-    BASTAAZURECONFIG_CLIENTSECRET='<KEY from aad app>'
-    BASTAAZURECONFIG_CALLBACKURI='http://localhost:8080/auth/openid/callback'
-    BASTACOOKIE_KEY1='<32bit cookie encryption key>'
-    BASTACOOKIE_KEY1='<32bit cookie encryption key>'
+    AZURECONFIG_CLIENTID='<application_id from aad app>'
+    AZURECONFIG_CLIENTSECRET='<KEY from aad app>'
+    AZURECONFIG_CALLBACKURI='http://localhost:8080/auth/openid/callback'
+    COOKIE_KEY1='<32bit cookie encryption key>'
+    COOKIE_KEY2='<32bit cookie encryption key>'
     PASSPORTCOOKIE_KEY1='<32bit cookie encryption key>'
     PASSPORTCOOKIE_KEY2='<32bit cookie encryption key>'
     PASSPORTCOOKIE_KEY3='<12bit cookie encryption key>'
@@ -19,6 +19,8 @@
 
 ## Run the application
 ```
+from the NAVS-AAD-Example-APP folder, run:
+
 npm install
 npm start
 ```

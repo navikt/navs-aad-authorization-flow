@@ -1,8 +1,8 @@
-exports.clientID = process.env['BASTAAZURECONFIG_CLIENTID']
-exports.clientSecret = process.env['BASTAAZURECONFIG_CLIENTSECRET']
+exports.clientID = process.env['AZURECONFIG_CLIENTID']
+exports.clientSecret = process.env['AZURECONFIG_CLIENTSECRET']
 exports.responseType = 'code'
 exports.responseMode = 'form_post'
-exports.redirectUrl = process.env['BASTAAZURECONFIG_CALLBACKURI']
+exports.redirectUrl = process.env['AZURECONFIG_CALLBACKURI']
 exports.passReqToCallback = true
 exports.scope = 'profile offline_access'
 exports.validateIssuer = true

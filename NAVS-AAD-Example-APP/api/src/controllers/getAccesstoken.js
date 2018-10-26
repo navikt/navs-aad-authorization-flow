@@ -6,11 +6,11 @@ exports.getAccessToken = async (tokenURI, resource) => {
   let parameters = ''
   try {
     parameters = {
-      client_id: process.env['BASTAAZURECONFIG_CLIENTID'],
+      client_id: process.env['AZURECONFIG_CLIENTID'],
       resource: resource,
-      redirect_uri: process.env['BASTAAZURECONFIG_CALLBACKURI'],
+      redirect_uri: process.env['AZURECONFIG_CALLBACKURI'],
       grant_type: 'client_credentials',
-      client_secret: process.env['BASTAAZURECONFIG_CLIENTSECRET']
+      client_secret: process.env['AZURECONFIG_CLIENTSECRET']
     }
     await request.post({ url: tokenURI, formData: parameters }, function callback(
       err,
@@ -31,12 +31,12 @@ exports.getAccessTokenUser = async (tokenURI, refreshToken, resource) => {
   let parameters = ''
   try {
     parameters = {
-      client_id: process.env['BASTAAZURECONFIG_CLIENTID'],
+      client_id: process.env['AZURECONFIG_CLIENTID'],
       resource: resource, 
-      redirect_uri: process.env['BASTAAZURECONFIG_CALLBACKURI'],
+      redirect_uri: process.env['AZURECONFIG_CALLBACKURI'],
       grant_type: 'refresh_token',
       refresh_token: refreshToken,
-      client_secret: process.env['BASTAAZURECONFIG_CLIENTSECRET']
+      client_secret: process.env['AZURECONFIG_CLIENTSECRET']
     }
     await request.post({ url: tokenURI, formData: parameters }, function callback(
       err,

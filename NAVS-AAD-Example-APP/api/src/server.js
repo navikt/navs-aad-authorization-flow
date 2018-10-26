@@ -2,7 +2,6 @@
 
 const { host, sessionSecret, cookieDomain } = require('./config/config')
 const express = require('express')
-const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const passport = require('passport')
@@ -13,15 +12,6 @@ require('./config/passport')(passport)
 const { startApp } = require('./startApp')
 
 const app = express()
-/*
-app.use(
-  logger('dev', {
-    skip: function(req, res) {
-      return req.url.toLowerCase() === '/isalive' || req.url === '/api/v1/user/session'
-    }
-  })
-)
-*/
 
 // HELMET
 app.use(helmet())
@@ -47,8 +37,8 @@ app.set('trust proxy', 1)
 
 app.use(
   session({
-    name: 'basta',
-    keys: [`${process.env['BASTACOOKIE_KEY1']}`, `${process.env['BASTACOOKIE_KEY2']}`],
+    name: 'navaadexample',
+    keys: [`${process.env['COOKIE_KEY1']}`, `${process.env['COOKIE_KEY2']}`],
     maxAge: 24 * 60 * 60 * 1000, // 24 timer
     domain: cookieDomain
   })

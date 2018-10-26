@@ -5,7 +5,6 @@ const { defaultPhoto } = require('./defaultPhoto')
 // GET USERS PHOTO FROM MICROSOFT GRAPH API
 exports.getUserPhoto = async ({ userId, refreshToken, userUpn }) => {
   let userPhoto = ''
-  let aToken = ''
   const resource = 'https://graph.microsoft.com'
   const accessToken = await token.validateRefreshAndGetToken(userId, refreshToken, resource)
   return request
