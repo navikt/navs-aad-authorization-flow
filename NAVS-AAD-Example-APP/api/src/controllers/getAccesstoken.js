@@ -1,6 +1,7 @@
 const request = require('request-promise')
 let ms_access_token = ''
 
+// GET SERVICE-SERVICE ACCESSTOKEN
 exports.getAccessToken = async (tokenURI, resource) => {
   let parameters = ''
   try {
@@ -21,11 +22,11 @@ exports.getAccessToken = async (tokenURI, resource) => {
     })
     return ms_access_token
   } catch (e) {
-    //console.error('Could not get access_token', e)
     return e
   }
 }
 
+// GET USER SPESIFIC ACCESSTOKEN
 exports.getAccessTokenUser = async (tokenURI, refreshToken, resource) => {
   let parameters = ''
   try {
@@ -46,7 +47,6 @@ exports.getAccessTokenUser = async (tokenURI, refreshToken, resource) => {
     })
     return ms_access_token
   } catch (e) {
-    //console.error('Could not get access_token', e)
     return e
   }
 }

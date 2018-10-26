@@ -2,7 +2,7 @@ const token = require('./getAccesstoken')
 const config = require('../config/passportConfig')
 const finduser = require('../config/findUser')
 
-
+// GET AND REFRESH TOKENS
 exports.validateRefreshAndGetToken = async (userid, refreshToken, resource) => {
   let oldAccessToken = ''
   const now = new Date()
@@ -49,13 +49,12 @@ exports.validateRefreshAndGetToken = async (userid, refreshToken, resource) => {
   return oldAccessToken
 }
 
-
+// DECODE TOKEN
 exports.decodeToken = encodedToken => {
   if (encodedToken) {
     if (encodedToken.startsWith('eyJ0')) {
       const tokenSplit = encodedToken.split('.')
       const tokenDecoded = Buffer.from(tokenSplit[1], 'base64').toString()
-      //console.log(tokenDecoded)
       return tokenDecoded
     } else {
       console.log('token decode error')

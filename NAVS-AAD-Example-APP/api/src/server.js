@@ -13,6 +13,7 @@ require('./config/passport')(passport)
 const { startApp } = require('./startApp')
 
 const app = express()
+/*
 app.use(
   logger('dev', {
     skip: function(req, res) {
@@ -20,12 +21,12 @@ app.use(
     }
   })
 )
+*/
 
 // HELMET
 app.use(helmet())
 
 // CORS
-
 const cors = function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', host)
   res.setHeader('Access-Control-Allow-Credentials', 'true')
@@ -39,7 +40,6 @@ const cors = function(req, res, next) {
 app.use(cors)
 
 // SESSION
-
 app.use(bodyParser.json())
 app.use(cookieParser(sessionSecret))
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -60,7 +60,6 @@ app.use(passport.session())
 app.use('/', router)
 
 // ERROR HANDLING
-
 app.use((err, req, res, next) => {
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}

@@ -2,6 +2,7 @@ const request = require('request-promise').defaults({ encoding: null })
 const token = require('./token')
 const { defaultPhoto } = require('./defaultPhoto')
 
+// GET USERS PHOTO FROM MICROSOFT GRAPH API
 exports.getUserPhoto = async ({ userId, refreshToken, userUpn }) => {
   let userPhoto = ''
   let aToken = ''
