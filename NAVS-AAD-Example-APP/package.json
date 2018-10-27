@@ -80,8 +80,7 @@
   },
   "nodemonConfig": {
     "ignore": [
-      "dist/*",
-      "frontend/*"
+      "dist/*"
     ]
   },
   "husky": {

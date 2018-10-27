@@ -2,7 +2,7 @@ const token = require('./getAccesstoken')
 const config = require('../config/passportConfig')
 const finduser = require('../config/findUser')
 
-// GET AND REFRESH TOKENS
+// GET AND REFRESH ACCESSTOKENS
 exports.validateRefreshAndGetToken = async (userid, refreshToken, resource) => {
   let oldAccessToken = ''
   const now = new Date()
@@ -15,8 +15,8 @@ exports.validateRefreshAndGetToken = async (userid, refreshToken, resource) => {
     oldAccessToken = false
   }
   if (user && !oldAccessToken) {
-    console.log("\x1b[33m%s\x1b[0m" ,'found user but no existing accesstoken for ', resource)
-    console.log("\x1b[33m%s\x1b[0m" ,'Getting new accessToken for', resource)
+    console.log("\x1b[33m%s\x1b[0m" ,' - found user but no existing accesstoken for ', resource)
+    console.log("\x1b[33m%s\x1b[0m" ,' - getting new accessToken for', resource)
     const newAccessToken = await token.getAccessTokenUser(config.tokenURI, refreshToken, resource)
     exp = JSON.parse(exports.decodeToken(newAccessToken)).exp
     if (!user.tokens) {
@@ -26,15 +26,15 @@ exports.validateRefreshAndGetToken = async (userid, refreshToken, resource) => {
     return newAccessToken
   }
   if (user && oldAccessToken) {
-    console.log("\x1b[33m%s\x1b[0m" ,'found user and existing accesstoken for', resource)
+    console.log("\x1b[33m%s\x1b[0m" ,' - found user and existing accesstoken for', resource)
     const oldtokenExpire = user.tokens.find(token => token.resource === resource).exp
     console.log("\x1b[33m%s\x1b[0m" ,
-      'accessToken expire',
+      ' - accessToken expire',
       new Date(oldtokenExpire * 1000) + ' = ' + (oldtokenExpire * 1000 - Date.parse(now)) + ' ms'
     )
     if (oldtokenExpire * 1000 < Date.parse(now)) {
+      console.log("\x1b[33m%s\x1b[0m" ,' - token has expired, getting new accessToken for', resource)
       const newAccessToken = await token.getAccessTokenUser(config.tokenURI, refreshToken, resource)
-      console.log("\x1b[33m%s\x1b[0m" ,'Getting new accessToken for', resource)
       exp = JSON.parse(exports.decodeToken(newAccessToken)).exp
       if (!user.tokens) {
         user.tokens = []
@@ -42,7 +42,7 @@ exports.validateRefreshAndGetToken = async (userid, refreshToken, resource) => {
       user.tokens.push({ resource: resource, accesstoken: newAccessToken, exp: exp })
       return newAccessToken
     } else {
-      console.log("\x1b[33m%s\x1b[0m" ,'token stil valid for', resource)
+      console.log("\x1b[33m%s\x1b[0m" ,' - accesstoken is stil valid for', resource)
     }
   }
 

@@ -23,12 +23,12 @@ if (process.env['NODE_ENV'] === 'production') {
   exports.tokenURI = `https://login.microsoftonline.com/navno.onmicrosoft.com/oauth2/token`
   exports.logoutURL = `https://login.microsoftonline.com/navno.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=http:\\\\basta.nais.io:8080`
   exports.allowHttpForRedirectUrl = false
-  exports.loggingLevel = 'debug'
+  exports.loggingLevel = 'error'
 } else if (process.env['NODE_ENV'] === 'development') {
   exports.identityMetadata =
     'https://login.microsoftonline.com/navq.onmicrosoft.com/.well-known/openid-configuration'
   exports.tokenURI = `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/token`
-  exports.logoutURL = `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=http:\\\\localhost:8080`
+  exports.logoutURL = `https://login.microsoftonline.com/966ac572-f5b7-4bbe-aa88-c76419c0f851/oauth2/logout?post_logout_redirect_uri=http:\\\\localhost:8080`
   exports.allowHttpForRedirectUrl = true
   exports.loggingLevel = 'error'
 }

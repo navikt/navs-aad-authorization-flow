@@ -10,6 +10,7 @@ const router = require('./routes/index')
 const helmet = require('helmet')
 require('./config/passport')(passport)
 const { startApp } = require('./startApp')
+const { logoutURL } = require('../src/config/passportConfig')
 
 const app = express()
 

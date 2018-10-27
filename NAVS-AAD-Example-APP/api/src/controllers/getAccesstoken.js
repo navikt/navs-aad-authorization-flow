@@ -1,7 +1,7 @@
 const request = require('request-promise')
 let ms_access_token = ''
 
-// GET SERVICE-SERVICE ACCESSTOKEN
+// GET SERVICE-SERVICE ACCESSTOKEN - Not in Use in this example
 exports.getAccessToken = async (tokenURI, resource) => {
   let parameters = ''
   try {
@@ -43,6 +43,7 @@ exports.getAccessTokenUser = async (tokenURI, refreshToken, resource) => {
       httpResponse,
       body
     ) {
+      console.log("\x1b[33m%s\x1b[0m" ,' - got accessToken in return from Azure AD for', resource)
       ms_access_token = JSON.parse(body).access_token
     })
     return ms_access_token

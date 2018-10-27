@@ -55,13 +55,13 @@ module.exports = passport => {
           return done(new Error('No oid found'), null)
         }
         process.nextTick(() => {
-          console.log("\x1b[33m%s\x1b[0m" ,'Doing authentication rutine in application')
+          console.log("\x1b[33m%s\x1b[0m" ,' - doing authentication rutine in application')
           finduser.findByOid(profile.oid, function(err, user) {
             if (err) {
               return done(err)
             }
             if (!user) {
-              console.log("\x1b[33m%s\x1b[0m" ,'User does not exist. writing new user info to state and session')
+              console.log("\x1b[33m%s\x1b[0m" ,' - user does not exist. writing new user info to state and session')
               let newUser = {}
               newUser.oid = profile.oid
               newUser.upn = profile.upn
@@ -79,7 +79,7 @@ module.exports = passport => {
               req.session.refreshToken = refreshToken
               return done(null, newUser)
             }
-            console.log("\x1b[33m%s\x1b[0m" ,'user did exist in state but not in session, writing new session info')
+            console.log("\x1b[33m%s\x1b[0m" ,' - user did exist in state but not in session, writing new session info')
             req.session.userid = user.oid
             req.session.upn = user.upn
             req.session.firstName = user.firstName
