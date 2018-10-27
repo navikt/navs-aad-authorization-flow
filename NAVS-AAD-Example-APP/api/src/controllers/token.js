@@ -39,6 +39,8 @@ exports.validateRefreshAndGetToken = async (userid, refreshToken, resource) => {
       if (!user.tokens) {
         user.tokens = []
       }
+      const index = user.tokens.indexOf(user.tokens.find(token => token.resource === resource))
+      user.tokens.splice(index, 1)
       user.tokens.push({ resource: resource, accesstoken: newAccessToken, exp: exp })
       return newAccessToken
     } else {
