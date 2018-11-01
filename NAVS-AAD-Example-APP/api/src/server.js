@@ -11,11 +11,19 @@ const helmet = require('helmet')
 require('./config/passport')(passport)
 const { startApp } = require('./startApp')
 const { logoutURL } = require('../src/config/passportConfig')
+//const globalTunnel = require('global-tunnel-ng')
 
 const app = express()
 
 // HELMET
 app.use(helmet())
+
+// webproxy support
+
+//globalTunnel.initialize({
+//  host: '155.55.60.117',
+//  port: '8088'
+//})
 
 // CORS
 const cors = function(req, res, next) {

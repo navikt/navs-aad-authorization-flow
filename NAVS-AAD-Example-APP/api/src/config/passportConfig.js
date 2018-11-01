@@ -30,5 +30,5 @@ if (process.env['NODE_ENV'] === 'production') {
   exports.tokenURI = `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/token`
   exports.logoutURL = `https://login.microsoftonline.com/966ac572-f5b7-4bbe-aa88-c76419c0f851/oauth2/logout?post_logout_redirect_uri=http:\\\\localhost:8080`
   exports.allowHttpForRedirectUrl = true
-  exports.loggingLevel = 'error'
+  exports.loggingLevel = 'debug'
 }
