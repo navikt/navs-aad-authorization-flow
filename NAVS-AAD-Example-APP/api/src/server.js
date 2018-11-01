@@ -11,7 +11,12 @@ const helmet = require('helmet')
 require('./config/passport')(passport)
 const { startApp } = require('./startApp')
 const { logoutURL } = require('../src/config/passportConfig')
+<<<<<<< HEAD
 //const globalTunnel = require('global-tunnel-ng')
+=======
+const globalTunnel = require('global-tunnel-ng')
+
+>>>>>>> 711b2be2b4e24b0074d649674c9d8a7b7b34d8f4
 
 const app = express()
 
