@@ -54,7 +54,7 @@ exports.ensureAuthenticated = () => {
   return async (req, res, next) => {
     console.log("\x1b[33m%s\x1b[0m" ,' - is user authenticated?: ', req.isAuthenticated())
     if (req.isAuthenticated()) {
-      resource = 'b36e92f3-d48b-473d-8f69-e7887457bd3f'
+      resource = process.env['AZURECONFIG_CLIENTID']
       const bastaToken = await token.validateRefreshAndGetToken( // # Only placed here as an example. In real world do this in the request to backend services insted
         req.session.userid,
         req.session.refreshToken,

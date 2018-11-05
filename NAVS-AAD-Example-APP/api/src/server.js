@@ -11,22 +11,15 @@ const helmet = require('helmet')
 require('./config/passport')(passport)
 const { startApp } = require('./startApp')
 const { logoutURL } = require('../src/config/passportConfig')
-<<<<<<< HEAD
 //const globalTunnel = require('global-tunnel-ng')
-=======
-const globalTunnel = require('global-tunnel-ng')
-
->>>>>>> 711b2be2b4e24b0074d649674c9d8a7b7b34d8f4
-
 const app = express()
 
 // HELMET
 app.use(helmet())
 
 // webproxy support
-
 //globalTunnel.initialize({
-//  host: '155.55.60.117',
+//  host: 'webproxy.nais',
 //  port: '8088'
 //})
 
@@ -60,6 +53,11 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
+// health
+app.get('/isalive', (req, res) => {
+  res.send('OK').status(200)
+})
+
 // ROUTES
 app.use('/', router)
 
@@ -70,6 +68,9 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).send(err)
   next()
 })
+
+
+
 
 // STARTUP
 startApp(app)

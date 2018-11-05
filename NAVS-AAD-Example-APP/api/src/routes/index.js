@@ -5,6 +5,7 @@ const user = require('../controllers/user')
 const frontend = require('../../../frontend/index')
 
 
+
 // AUTHENTICATION
 router.get('/login/:param1?/:param2?/:param3?', auth.authenticateAzure())
 
