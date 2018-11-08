@@ -3,7 +3,7 @@ const router = express.Router()
 const auth = require('../controllers/authenticate')
 const user = require('../controllers/user')
 const frontend = require('../../../frontend/index')
-
+const token = require('../controllers/token')
 
 
 // AUTHENTICATION
@@ -17,5 +17,14 @@ router.get(`/auth/logout`, auth.logout())
 router.get(`/user/profile`, auth.ensureAuthenticated(), user.getUserProfile())
 
 router.get('/', auth.ensureAuthenticated(), frontend.showFrontPage())
+
+// GET TOKEN FLOWS
+router.get(`/token`, auth.ensureAuthenticated(), token.getToken())
+
+router.get(`/tokenuser`, auth.ensureAuthenticated(), token.getTokenUser())
+
+router.get(`/tokenbehalf`, auth.ensureAuthenticated(), token.getTokenOnBehalf())
+
+router.get(`/tokenverify`, auth.ensureAuthenticated(), token.verifyToken())
 
 module.exports = router

@@ -51,3 +51,32 @@ exports.getAccessTokenUser = async (tokenURI, refreshToken, resource) => {
     return e
   }
 }
+
+// GET ACCESSTOKEN ON BEHALF OF EXISITING ACCESSTOKEN
+exports.getAccessTokenOnBehalf = async (tokenURI, accessToken, resource) => {
+  let parameters = ''
+  try {
+    parameters = {
+      client_id: process.env['AZURECONFIG_CLIENTID'],
+      resource: resource, // process.env['BASTAAZURECONFIG_CLIENTID'],
+      assertion: accessToken,
+      grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+      requested_token_use: 'on_behalf_of',
+      scope: 'openid',
+      client_secret: process.env['AZURECONFIG_CLIENTSECRET']
+    }
+    await request.post({ url: tokenURI, formData: parameters }, function callback(
+      err,
+      httpResponse,
+      body
+    ) {
+      ms_access_token = JSON.parse(body).access_token
+
+      // console.log('access token: ', ms_access_token)
+    })
+    return ms_access_token
+  } catch (e) {
+    //console.error('Could not get access_token', e)
+    return e
+  }
+}

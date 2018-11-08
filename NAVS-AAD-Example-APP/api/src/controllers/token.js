@@ -1,6 +1,7 @@
 const token = require('./getAccesstoken')
 const config = require('../config/passportConfig')
 const finduser = require('../config/findUser')
+var azureJWT = require('azure-jwt-verify')
 
 // GET AND REFRESH ACCESSTOKENS
 exports.validateRefreshAndGetToken = async (userid, refreshToken, resource) => {
@@ -65,5 +66,82 @@ exports.decodeToken = encodedToken => {
   } else {
     console.log('no token in input')
     return new Error('no token in input')
+  }
+}
+
+
+
+// FORSKJELLIGE GET ACCESSTOKEN FLOWS
+exports.getToken = () => {
+  return async (req, res) => {
+    const accessToken = await token.getAccessToken(
+      config.tokenURI,
+      process.env['AZURECONFIG_CLIENTID']
+    )
+    res.send(accessToken)
+  }
+}
+exports.getTokenUser = () => {
+  return async (req, res) => {
+    const accessToken = await token.getAccessTokenUser(
+      config.tokenURI,
+      req.session.refreshToken,
+      process.env['AZURECONFIG_CLIENTID']
+    )
+    res.send(accessToken)
+  }
+}
+
+exports.getTokenOnBehalf = () => {
+  return async (req, res) => {
+    resource = process.env['AZURECONFIG_CLIENTID']
+    const user = await finduser.findByOid(req.session.userid, async function(err, user) {
+      return user
+    })
+    try {
+      oldAccessToken = user.tokens.find(token => token.resource === resource).accesstoken
+    } catch (err) {
+      oldAccessToken = false
+    }
+    const accessToken = await token.getAccessTokenOnBehalf(
+      config.tokenURI,
+      oldAccessToken,
+      process.env['AZURECONFIG_CLIENTID']
+    )
+    res.send(accessToken)
+  }
+}
+
+
+
+exports.verifyToken = () => {
+  return async (req, res) => {
+    
+    var jwtToken =  req.query.token 
+    //console.log(jwtToken)
+    const config = {
+      JWK_URI: 'https://login.microsoftonline.com/common/discovery/keys',
+      ISS: 'https://sts.windows.net/62366534-1ec3-4962-8869-9b5535279d0b/',
+      AUD: process.env['AZURECONFIG_CLIENTID']
+    }
+    azureJWT.verify(jwtToken, config).then(
+      function(decoded) {
+        // success callback
+        //console.log(decoded)
+        json = JSON.parse(decoded)
+        const currentdate = new Date().getTime() / 1000
+        if (currentdate > json.message.exp) {
+          console.log('expired')
+        }
+        //console.log(json.message.ipaddr)
+        res.send(decoded)
+      },
+      function(error) {
+        // error callback
+        console.log(error)
+        res.send(error)
+      }
+    )
+    //res.send(accessToken)
   }
 }

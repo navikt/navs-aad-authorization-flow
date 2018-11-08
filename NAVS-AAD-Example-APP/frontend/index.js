@@ -21,6 +21,17 @@ exports.showFrontPage = () => {
 
           <br></br>
           <a href="/auth/logout">Logout</a>
+          <br><br>
+          <a href=/token> Generate Service-to-service accessToken</a><br>
+          <a href=/tokenuser> Generate accessToken with users refreshToken</a><br>
+          <a href=/tokenbehalf> Generate accessToken with users existing accessToken</a><br>
+          <br><br>
+          <p> Verify token</p>
+          <form action=/tokenverify>
+            <input type=text name=token>
+            <input type=submit value=Submit>
+          </form>
+
         </center>  
         </html>
       `)
