@@ -5,7 +5,7 @@
 
 To accept an accessToken and ensure its validity you have to to the following validations:
 
-# Signature: To ensure the token is issued by Azure AD, and not tampered with after it is issued
+### Signature: To ensure the token is issued by Azure AD, and not tampered with after it is issued
 1. Get the "jwks_uri" from https://login.microsoftonline.com/'tennant name'/.well-known/openid-configuration
     1. It should normaly be https://login.microsoftonline.com/common/discovery/keys
 2. decode the token and get the "kid" value from the header
@@ -23,7 +23,7 @@ To accept an accessToken and ensure its validity you have to to the following va
 ```
 4. Use the downloaded certificate to verify the signature. We recomend to use a proper library to do this verification.
 
-## Audience field
+### Audience field
 The audience field should match the recieving application app_id in Azure AD. ie:  
 ```
 "aud": "e7aada64-06d1-4148-95c9-a1fcceef44",
@@ -31,7 +31,7 @@ The audience field should match the recieving application app_id in Azure AD. ie
 
 If you will request tokens to a backend API, an Azure AD applications should be registered for that API, and tokens should be requested with that applications "application ID" as a resource parameter. The generated token will then get the same "application ID" in the "aud:" field. The backend API should know about its own "application ID" and must verify that all tokens have that ID in the "aud:" field.
 
-## token expiration
+### token expiration
 ```
   "iat": 1541663530, <-- time the token was issued
   "nbf": 1541663530, <-- not valid before
