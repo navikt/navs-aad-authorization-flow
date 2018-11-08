@@ -89,6 +89,10 @@ Build and deploy the docker image as normal to NAIS
 
  > [How to verify the accessToken](./verifyToken.md)
 
+## examples of different types of Azure AD tokens
+
+ > [Azure AD token examples](./tokenExamples.md)
+
 ## More information
 
 > Get Started with Azure AD authentication: https://docs.microsoft.com/nb-no/azure/active-directory/develop/v1-overview
