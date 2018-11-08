@@ -38,7 +38,7 @@ app.use(cors)
 
 // SESSION
 app.use(bodyParser.json())
-app.use(cookieParser(sessionSecret))
+app.use(cookieParser(process.env['COOKIE_KEY1']))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.set('trust proxy', 1)
 

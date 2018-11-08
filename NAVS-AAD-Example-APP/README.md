@@ -84,3 +84,25 @@ COPY ./node_modules/oauth/lib/oauth2.js /app/node_modules/oauth/lib/oauth2.js
 ```
 
 Build and deploy the docker image as normal to NAIS
+
+## mandatory requirements to verify an accessToken
+
+ > [How to verify the accessToken](./verifyToken.md)
+
+## More information
+
+> Get Started with Azure AD authentication: https://docs.microsoft.com/nb-no/azure/active-directory/develop/v1-overview
+> 
+> Description of the Open ID Connect protocol: https://docs.microsoft.com/nb-no/azure/active-directory/develop/v1-protocols-openid-connect-code
+> 
+> Description of the Oauth2 autorization code flow: https://docs.microsoft.com/nb-no/azure/active-directory/develop/v1-protocols-oauth-code
+> 
+> AccessTokens: https://docs.microsoft.com/nb-no/azure/active-directory/develop/access-tokens
+> 
+> Validating tokens: https://docs.microsoft.com/en-us/azure/active-directory/develop/access-tokens#validating-tokens
+> 
+> An other Node.js example: https://docs.microsoft.com/nb-no/azure/active-directory/develop/quickstart-v1-nodejs-webapi
+> 
+> Code samples: https://docs.microsoft.com/nb-no/azure/active-directory/develop/sample-v1-code
+> 
+
