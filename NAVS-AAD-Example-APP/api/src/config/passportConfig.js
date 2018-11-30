@@ -26,16 +26,16 @@ if (process.env['NODE_ENV'] === 'production') {
   exports.loggingLevel = 'error'
 } else if (process.env['NODE_ENV'] === 'development') {
   exports.identityMetadata =
-    'https://login.microsoftonline.com/navno.onmicrosoft.com/.well-known/openid-configuration'
-  exports.tokenURI = `https://login.microsoftonline.com/navno.onmicrosoft.com/oauth2/token`
-  exports.logoutURL = `https://login.microsoftonline.com/navno.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=http:\\\\localhost:8080`
+    'https://login.microsoftonline.com/navq.onmicrosoft.com/.well-known/openid-configuration'
+  exports.tokenURI = `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/token`
+  exports.logoutURL = `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=http:\\\\localhost:8080`
   exports.allowHttpForRedirectUrl = true
   exports.loggingLevel = 'debug'
 } else {
   exports.identityMetadata =
-  'https://login.microsoftonline.com/navno.onmicrosoft.com/.well-known/openid-configuration'
-  exports.tokenURI = `https://login.microsoftonline.com/navno.onmicrosoft.com/oauth2/token`
-  exports.logoutURL = `https://login.microsoftonline.com/navno.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=http:\\\\localhost:8080`
+  'https://login.microsoftonline.com/navq.onmicrosoft.com/.well-known/openid-configuration'
+  exports.tokenURI = `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/token`
+  exports.logoutURL = `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=http:\\\\localhost:8080`
   exports.allowHttpForRedirectUrl = true
   exports.loggingLevel = 'debug'
 }
