@@ -3,17 +3,17 @@
 
 ## Prerequisites
 1. Registered App in Azure AD (https://github.com/navikt/IaC/tree/master/Azure/registerApplication)
-2. .env file with:
+2. Create a file called ".env" in the NAVS-AAD-Example-APP folder that contains:
    ```
     AZURECONFIG_CLIENTID='<application_id from aad app>'
     AZURECONFIG_CLIENTSECRET='<KEY from aad app>'
     AZURECONFIG_CALLBACKURI='http://localhost:8080/auth/openid/callback'
-    COOKIE_KEY1='<32bit cookie encryption key>'
-    COOKIE_KEY2='<32bit cookie encryption key>'
-    PASSPORTCOOKIE_KEY1='<32bit cookie encryption key>'
-    PASSPORTCOOKIE_KEY2='<32bit cookie encryption key>'
-    PASSPORTCOOKIE_KEY3='<12bit cookie encryption key>'
-    PASSPORTCOOKIE_KEY4='<12bit cookie encryption key>'
+    COOKIE_KEY1='<any string of length 32>'
+    COOKIE_KEY2='<any string of length 32>'
+    PASSPORTCOOKIE_KEY1='<any string of length 32>'
+    PASSPORTCOOKIE_KEY2='<any string of length 32>'
+    PASSPORTCOOKIE_KEY3='<any string of length 12>'
+    PASSPORTCOOKIE_KEY4='<any string of length 12>'
     ```
 3. A valid Azure AD user
 
