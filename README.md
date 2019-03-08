@@ -15,7 +15,7 @@
 ## Choice of Authorization flow
 There are many authorization flows available in Azure AD and OIDC/Oauth2.
 Choice of flow determine what AAD will return (code and/or id_token), how it will be returned and what it can be used for after a successful login.
-For optimal security [Authentication Code flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow) should be used, and only _**<authorization_code>**_ (_responseType = Code_) should be requested from Azure AD, not _**<id_token>**_.
+For optimal security [Authorization Code flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow) should be used, and only _**<authorization_code>**_ (_responseType = Code_) should be requested from Azure AD, not _**<id_token>**_.
 This will ensure that neither _**<id_token>**_, _**<access_token>**_ or _**<refresh_token>**_ has ever been accessible to the client before they reach the application.
 
 ## Authorization Code
@@ -27,7 +27,7 @@ This ensures the only compromisable entity is the _**<authorization_code>**_
 ## [ID Token](https://docs.microsoft.com/en-us/azure/active-directory/develop/id-tokens)
 An _**<id_token>**_is only meant to be used for authenticating the user in the frontend application. In practice, this means fetching information about the user, like username, name, email, etc.
 The _**<id_token>**_ has a default lifetime of 1 hour and cannot be renewed after expiry unless the user makes a new login in Azure AD.
-_**<id_token>**_ is normally not used in an [Authentication Code flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow) 
+_**<id_token>**_ is normally not used in an [Authorization Code flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow) 
 
 ## [Access Token](https://docs.microsoft.com/en-us/azure/active-directory/develop/access-tokens)
 An _**<access_token>**_ is used to grant access to frontend applications or backend services.
@@ -59,7 +59,7 @@ Given that this is the same browser the user originally logged in to Azure AD wi
 ## Company user login vs. Consumer user login
 
 #### Consumer user login
-To enable consumer user login we must use Azure AD B2C and integrate it with [id_porten](https://eid.difi.no/nb/id-porten). Azure AD B2C supports the Authentication Code flow the same way as Azure AD.
+To enable consumer user login we must use Azure AD B2C and integrate it with [id_porten](https://eid.difi.no/nb/id-porten). Azure AD B2C supports the Authorization Code flow the same way as Azure AD.
 
 One limitation with Azure AD B2C is that it does not support "on behaf of flow", where a backend service can use the accesstoken to request a new accesstoken to an other backend service, on behaf of the user. With Azure AD B2C this only works with the refreshToken. An alternative solution is to request and use a service-service accesstoken insted.
 
